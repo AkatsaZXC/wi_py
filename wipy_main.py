@@ -33,6 +33,13 @@ def menu_bar():
             exit()
 
 
+#  Check if user run this app with sudo
+if not 'SUDO_UID' in os.environ.keys():
+    print("Run this script with sudo.\n")
+    print("Exiting...")
+    exit()
+
+
 def main():
     #  Basic user interface
     print(colorama.Fore.YELLOW, f"""________________________________
@@ -49,15 +56,6 @@ def main():
     #  Calling menu_bar function
     menu_bar()
 
-
-
-
-
-#  Check if user run this app with sudo
-if not 'SUDO_UID' in os.environ.keys():
-    print("Run this script with sudo.\n")
-    print("Exiting...")
-    exit()
 
 if __name__ == '__main__':
     main()
