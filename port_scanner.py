@@ -1,6 +1,18 @@
-
 import socket
 import os
+import threading
+from queue import Queue
+
+print_lock = threading.Lock()
+q = Queue()
+
+
+def threader():
+    while True:
+        port = q.get()
+        port_scanner(port)
+        q.task_done()
+
 
 def port_scanner(port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -24,10 +36,17 @@ def port_scanner(port):
         exit()
 
 
-
 def main():
+    for x in range(100):
+        thread = threading.Thread(target=threader)
+        thread.daemon = True
+        thread.start()
+
     for port in range(100):
-        port_scanner(port)
+        q.put(port)
+
+    q.join()
+
 
 if __name__ == '__main__':
     main()

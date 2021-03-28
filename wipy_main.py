@@ -14,8 +14,7 @@ def menu_bar():
     if tool_number == '1':
         print(colorama.Fore.GREEN, "Chosen *Port scanner*")
         try:
-            for port in range(100):
-                port_scanner.port_scanner(port)
+            port_scanner.main()
         except Exception as e:
             print("This tool is not exist yet")
             exit()
